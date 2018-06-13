@@ -1,0 +1,16 @@
+<!--pages/details/details.wxml-->
+<view class='news-details'>
+  <view class="title">{{title}}</view>
+  <view class="description"> 
+    <view class="date">{{source}} {{date}}</view>
+    <view class="readCount"> 阅读: {{readCount}}</view>
+  </view>
+
+  <view class="content">
+    <view class="content_item" wx:for="{{content}}" wx:key="item">
+    <text wx:if="{{item.type==='strong'}}" class='type_strong'>{{item.text}}</text>
+    <image wx:if="{{item.type==='image'}}" class='type_image' mode='scaleToFill' src='{{item.src}}'></image>
+    <text wx:if="{{item.type==='p'}}" class='type_p'>{{item.text}}</text>
+    </view>
+  </view>
+</view>

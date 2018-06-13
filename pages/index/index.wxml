@@ -1,13 +1,34 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+<!-- navbar -->
+<view class='news-bar'>
+  <view class="swiper-tab">
+    <view class="swiper-tab-list {{currentTab== index ? 'on' : ''}}" data-current="{{index}}" wx:for="{{newsTypeMap}}" wx:key='*this' bindtap='switchType' data-id='{{item.id}}'>{{item.key}}</view>
   </view>
 </view>
+
+<!--main news -->
+<view class="main-new" data-news='{{mainNew}}' bindtap='onTapNewsDetail'>
+  <image class="main-new-image" src="{{mainNew.firstImage}}"></image>
+  <view class="main-info">
+    <view class="main-new-title">{{mainNew.title}}</view>
+    <view class="main-new-source">{{mainNew.source}}</view>
+    <view class="main-new-date">{{mainNew.date}}</view>
+  </view>
+</view>
+
+<!--news list-->
+<view class='news-list'>
+  <view class='news-list-item' wx:for="{{newsList}}" wx:key='*this' data-news='{{item}}' bindtap='onTapNewsDetail'>
+    <view>
+      <view class="item-title">{{item.title}}</view>
+      <view class="item-info">
+        <view class="item-source">{{item.source}}</view>
+        <view class="item-date">{{item.date}}</view>
+      </view>
+    </view>
+      <image class="item-image" src='{{item.firstImage}}'></image> 
+  </view>
+</view>
+
+
+
