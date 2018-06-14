@@ -25,11 +25,6 @@ Page({
   /* 下拉刷新 */
   onPullDownRefresh(){
     this.getNews(()=>{ wx.stopPullDownRefresh()})
-    wx.showToast({
-      title: '新货已上架',
-      icon: 'success',
-      duration: 1000,
-    })
   },
   
   /* 请求新闻api */
@@ -61,7 +56,7 @@ Page({
     if(this.data.currentTab === event.target.dataset.current){
       return false;
     }else{
-      this.getNews(currentNewsType)
+      this.getNews()
       this.setData({
         newsType: currentNewsType,
         currentTab: event.target.dataset.current,

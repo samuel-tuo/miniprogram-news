@@ -2,7 +2,7 @@
 <!-- navbar -->
 <view class='news-bar'>
   <view class="swiper-tab">
-    <view class="swiper-tab-list {{currentTab== index ? 'on' : ''}}" data-current="{{index}}" wx:for="{{newsTypeMap}}" wx:key='*this' bindtap='switchType' data-id='{{item.id}}'>{{item.key}}</view>
+    <view class="swiper-tab-list {{currentTab== index ? 'on' : ''}}" data-current="{{index}}" wx:for="{{newsTypeMap}}" wx:key='{{item}}' bindtap='switchType' data-id='{{item.id}}'>{{item.key}}</view>
   </view>
 </view>
 
