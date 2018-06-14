@@ -34,8 +34,7 @@ Page({
         console.log(res)
         if(res.data.code === 200){
           let result = res.data.result
-          result.source = result.source === "" ? result.source = "网络媒体" : result.source
-          result.date = result.date.substr(0,10) + " " + result.date.substr(11,5) + " "
+          this.handleNewsData(result)
           this.setData({
             ...result,
             source: result.source,
@@ -44,5 +43,11 @@ Page({
         }
       }
     })
+  },
+  /* 处理新闻数据  */
+  handleNewsData(result){
+    result.source = result.source === "" ? result.source = "网络媒体" : result.source
+    result.date = result.date.substr(0, 10) + " " + result.date.substr(11, 5) + " "
   }
+
 })

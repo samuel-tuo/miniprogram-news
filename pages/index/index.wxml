@@ -18,7 +18,7 @@
 
 <!--news list-->
 <view class='news-list'>
-  <view class='news-list-item' wx:for="{{newsList}}" wx:key='*this' data-news='{{item}}' bindtap='onTapNewsDetail'>
+  <view class='news-list-item' wx:for="{{newsList}}" wx:key='{{item}}' data-news='{{item}}' bindtap='onTapNewsDetail'>
     <view>
       <view class="item-title">{{item.title}}</view>
       <view class="item-info">

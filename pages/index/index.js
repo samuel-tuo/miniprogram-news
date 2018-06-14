@@ -1,4 +1,3 @@
-const newsTypeList = ['gn','gj','cj','yl','js','ty','other']
 const newsTypeMap = [
   {id: "gn", key: "国内"},
   {id: "gj", key: "国际"},
@@ -19,22 +18,26 @@ Page({
 
   /* 加载页面 */
   onLoad(){
-    let currentNewsType = this.data.newsType === '' ? newsTypeList[0] : this.data.newsType
-    this.getNews(currentNewsType)
+    this.data.newsType = this.data.newsTypeMap[0].id
+    this.getNews()
   },
 
   /* 下拉刷新 */
   onPullDownRefresh(){
-    let currentNewsType = this.data.newsType === "" ? newsTypeList[0] : this.data.newsType
-    this.getNews(currentNewsType)
+    this.getNews(()=>{ wx.stopPullDownRefresh()})
+    wx.showToast({
+      title: '新货已上架',
+      icon: 'success',
+      duration: 1000,
+    })
   },
   
   /* 请求新闻api */
-  getNews(newsType) {
+  getNews(callback) {
     wx.request({
       url: 'https://test-miniprogram.com/api/news/list',
       data: {
-        type: newsType
+        type: this.data.newsType
       },
       success: res => {
         let mainNew = ""
@@ -46,13 +49,15 @@ Page({
           mainNew: mainNew,
           newsList: newsList
         })
+      },
+      complete: ()=>{
+        callback && callback()
       }
     })
   },
   /* 标签切换 */
   switchType: function(event) {
     let currentNewsType = event.target.dataset.id;
-    console.log(event.target.dataset.id)
     if(this.data.currentTab === event.target.dataset.current){
       return false;
     }else{
@@ -68,7 +73,10 @@ Page({
     for (let i = 0; i < info.length; i++) {
       info[i].date = info[i].date.substr(0, 10) + ' ' + info[i].date.substr(11, 5)
       if (info[i].source === "") {
-        info[i].source = "网络媒体"
+        info[i].source = "网络媒体";
+      }
+      if (info[i].firstImage === ""){
+        info[i].firstImage = "/images/default_icon.jpg"
       }
       if(i===0){
         mainNew = info[i]
